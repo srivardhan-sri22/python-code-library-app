@@ -16,7 +16,7 @@ services:
     ports:
       - "5001:5001"
     networks:
-      - mynet
+      - mynetwork
     
     depends_on:
       - db_service
@@ -58,7 +58,6 @@ services:
       - auth_service
       - book_service
       - borrow_service
-  
-  networks:
-    mynetwork:
-      driver: overlay
+networks:
+  mynetwork:
+    driver: overlay
