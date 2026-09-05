@@ -1,60 +1,64 @@
 ---
 services:
-  db:
-    image: shaikmustafa/arshad:db
+  db_service:
+    image: srivardhan22/pyproj:db_image
+    networks:
+      - mynet
     deploy:
       replicas: 1
     ports:
       - "3306:3306"
-    networks:
-      - mynetwork
 
   auth_service:
-    image: shaikmustafa/arshad:auth
+    image: srivardhan22/pyproj:auth_image
     deploy:
       replicas: 1
+    networks:
+      - mynet
     ports:
       - "5001:5001"
-    networks:
-      - mynetwork
-    depends_on:
-      - db
     
+    depends_on:
+      - db_service
 
   book_service:
-    image: shaikmustafa/arshad:book
+    image: srivardhan22/pyproj:book_image
     deploy:
       replicas: 1
+    networks:
+      - mynet
     ports:
       - "5002:5002"
-    networks:
-      - mynetwork
+    
     depends_on:
-      - db
+      - db_service
+
   borrow_service:
-    image: shaikmustafa/arshad:borrow
+    image: srivardhan22/pyproj:borrow_image
     deploy:
       replicas: 1
+    networks:
+      - mynet
     ports:
       - "5003:5003"
-    networks:
-      - mynetwork
+    
     depends_on:
-      - db
+      - db_service
 
   frontend:
-    image: shaikmustafa/arshad:frontend
+    image: srivardhan22/pyproj:frontend
     deploy:
       replicas: 1
+    networks:
+      - mynet
     ports:
       - "5000:5000"
-    networks:
-      - mynetwork
+    
     depends_on:
       - auth_service
       - book_service
       - borrow_service
-
-networks:
-  mynetwork:
-    driver: bridge
+  
+  networks:
+    mynet:
+      driver: overlay
