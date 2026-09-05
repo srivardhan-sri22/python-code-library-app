@@ -2,21 +2,21 @@
 services:
   db_service:
     image: srivardhan22/pyproj:db_image
-    networks:
-      - mynet
     deploy:
       replicas: 1
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
 
   auth_service:
     image: srivardhan22/pyproj:auth_image
     deploy:
       replicas: 1
-    networks:
-      - mynetwork
     ports:
       - "5001:5001"
+    networks:
+      - mynet
     
     depends_on:
       - db_service
@@ -25,10 +25,10 @@ services:
     image: srivardhan22/pyproj:book_image
     deploy:
       replicas: 1
-    networks:
-      - mynetwork
     ports:
       - "5002:5002"
+    networks:
+      - mynetwork
     
     depends_on:
       - db_service
@@ -37,10 +37,10 @@ services:
     image: srivardhan22/pyproj:borrow_image
     deploy:
       replicas: 1
-    networks:
-      - mynetwork
     ports:
       - "5003:5003"
+    networks:
+      - mynetwork
     
     depends_on:
       - db_service
@@ -49,10 +49,10 @@ services:
     image: srivardhan22/pyproj:frontend
     deploy:
       replicas: 1
-    networks:
-      - mynetwork
     ports:
       - "5000:5000"
+    networks:
+      - mynetwork
     
     depends_on:
       - auth_service
