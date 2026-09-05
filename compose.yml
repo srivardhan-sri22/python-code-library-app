@@ -14,7 +14,7 @@ services:
     deploy:
       replicas: 1
     networks:
-      - mynet
+      - mynetwork
     ports:
       - "5001:5001"
     
@@ -26,7 +26,7 @@ services:
     deploy:
       replicas: 1
     networks:
-      - mynet
+      - mynetwork
     ports:
       - "5002:5002"
     
@@ -38,7 +38,7 @@ services:
     deploy:
       replicas: 1
     networks:
-      - mynet
+      - mynetwork
     ports:
       - "5003:5003"
     
@@ -50,7 +50,7 @@ services:
     deploy:
       replicas: 1
     networks:
-      - mynet
+      - mynetwork
     ports:
       - "5000:5000"
     
@@ -60,5 +60,5 @@ services:
       - borrow_service
   
   networks:
-    mynet:
+    mynetwork:
       driver: overlay
